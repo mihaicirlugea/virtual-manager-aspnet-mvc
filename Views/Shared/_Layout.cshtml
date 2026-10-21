@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PAW_PROJECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        /* Fixare structură pentru footer la bază */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(circle at top right, #1e3a8a, #0f172a) !important;
+            background-color: #0f172a !important;
+            color: #f8fafc;
+        }
+
+        header {
+            flex-shrink: 0;
+        }
+
+        main {
+            flex: 1 0 auto; /* Împinge tot ce e sub el (footer) la bază */
+            padding-bottom: 2rem;
+        }
+
+        footer {
+            flex-shrink: 0;
+            background-color: #000000 !important;
+            border-top: 1px solid #1e293b;
+            color: #94a3b8;
+        }
+
+        /* Turcoaz nou - varianta soft/lizibilă */
+        .text-info, .nav-link:hover, .navbar-brand {
+            color: #a5f3fc !important; /* Cyan deschis */
+        }
+
+        .btn-info {
+            background-color: #22d3ee !important;
+            border-color: #22d3ee !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
+
+        /* Stilul pentru tabelele mari (Uniformitate) */
+        .table-container {
+            background-color: rgba(15, 23, 42, 0.9) !important;
+            border: 1px solid #1e293b;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        .table thead th {
+            color: #a5f3fc !important;
+            border-bottom: 2px solid #1e293b;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Formularele din Create/Edit */
+        .form-container {
+            background-color: rgba(15, 23, 42, 0.95) !important;
+            border: 1px solid #22d3ee;
+            border-radius: 1rem;
+            padding: 0;
+            overflow: hidden;
+            max-width: 600px;
+            margin: 3rem auto;
+        }
+
+        .form-header {
+            background-color: rgba(34, 211, 238, 0.1);
+            border-bottom: 1px solid #22d3ee;
+            padding: 1.5rem;
+        }
+
+        .form-body {
+            padding: 2rem;
+        }
+
+        .navbar {
+            background-color: #000000 !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom border-dark box-shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">PAW_PROJECT</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 text-uppercase small fw-bold align-items-center">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Acasă</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Activitati" asp-action="Index">Activități</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Ecosistems" asp-action="Index">Ecosisteme</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="FluxCapitals" asp-action="Index">Finanțe</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Dashboard">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Privacy">Confidențialitate</a></li>
+
+                        @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item ms-2">
+                                <a class="nav-link text-danger fw-bold border border-danger rounded-pill px-3 py-1 text-center" style="font-size: 0.75rem; letter-spacing: 0.05em;" asp-controller="Admin" asp-action="Users">Panou Admin</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="navbar-nav ms-auto align-items-center small">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <span class="nav-item me-3 text-white d-flex align-items-center">
+                                <img src="https://ui-avatars.com/api/?name=@System.Net.WebUtility.UrlEncode(User.Identity.Name)&background=22d3ee&color=0f172a&size=64" alt="Profil" class="rounded-circle me-2" style="width: 28px; height: 28px; object-fit: cover;" />
+                                <strong>@User.Identity.Name</strong>
+                            </span>
+                            <span class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-link nav-link p-0 text-danger text-uppercase fw-bold border-0 bg-transparent" style="font-size: 0.85rem;">
+                                        Deconectare
+                                    </button>
+                                </form>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="nav-item me-3">
+                                <a class="nav-link text-uppercase fw-bold" asp-controller="Account" asp-action="Login">Autentificare</a>
+                            </span>
+                            <span class="nav-item">
+                                <a class="btn btn-info btn-sm rounded-pill px-3 text-uppercase fw-bold" asp-controller="Account" asp-action="Register">Cont Nou</a>
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>$
+    </header>
+
+    <main role="main">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="footer py-4 mt-auto">
+        <div class="container text-center small">
+            <span class="opacity-50">&copy; 2026 - PAW_PROJECT -</span>
+            <a asp-controller="Home" asp-action="Privacy" class="text-info text-decoration-none fw-bold">Politica de Confidențialitate</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

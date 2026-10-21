@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PAW_PROJECT.Models.FluxCapital>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-white">Jurnal Financiar</h2>
+        @* Direcționăm butonul către noul Controller creat pentru FluxuriCapitale *@
+        <a asp-controller="FluxCapitals" asp-action="Create" class="btn btn-success rounded-pill">+ Tranzacție Nouă</a>
+    </div>
+
+    <div class="table-responsive shadow-lg rounded">
+        <table class="table table-dark table-hover mb-0">
+            <thead class="table-active">
+                <tr>
+                    <th>Data</th>
+                    <th>Ecosistem</th> @* Înlocuim Descriere cu Ecosistem, conform bazei de date *@
+                    <th>Tip</th> @* Înlocuim Categorie cu Tip (Venit/Cheltuială) *@
+                    <th>Sumă</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.DataTimp.ToString("dd/MM/yyyy")</td>
+                            <td>@(item.Ecosistem?.Denumire ?? "Nespecificat")</td>
+                            <td>
+                                @if (item.Vector == 0) // Presupunem 0 = Venit, 1 = Cheltuială conform modelului
+                                {
+                                    <span class="badge bg-success text-dark">Venit</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger text-dark">Cheltuială</span>
+                                }
+                            </td>
+                            <td class="@(item.Vector == 0 ? "text-success" : "text-danger") fw-bold">
+                                @(item.Vector == 0 ? "+" : "-") @item.SumaRON RON
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">
+                            Nu există tranzacții înregistrate în acest moment.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

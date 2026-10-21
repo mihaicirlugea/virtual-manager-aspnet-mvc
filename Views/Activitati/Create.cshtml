@@ -1,0 +1,39 @@
+﻿@model PAW_PROJECT.Models.Activitate
+
+<div class="container">
+    <div class="form-container shadow-lg">
+        <div class="form-header">
+            <h2 class="text-white fw-bold m-0">Activitate Nouă</h2>
+        </div>
+
+        <div class="form-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Denumire" class="form-label text-info">Denumire</label>
+                    <input asp-for="Denumire" class="form-control bg-secondary text-white border-0" placeholder="Ex: Fotbal" />
+                    <span asp-validation-for="Denumire" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EfortOre" class="form-label text-info">Efort (Ore)</label>
+                    <input asp-for="EfortOre" class="form-control bg-secondary text-white border-0" placeholder="Ex: 2.0" />
+                    <span asp-validation-for="EfortOre" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EcosistemId" class="form-label text-info">Ecosistem Destinație</label>
+                    <select asp-for="EcosistemId" class="form-select bg-secondary text-white border-0" asp-items="ViewBag.EcosistemId">
+                        <option value="">-- Selectează Ecosistem --</option>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <a asp-action="Index" class="btn btn-outline-light rounded-pill px-4">Înapoi</a>
+                    <button type="submit" class="btn btn-info rounded-pill px-4 fw-bold">Salvează Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

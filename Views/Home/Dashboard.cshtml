@@ -1,0 +1,98 @@
+﻿@model PAW_PROJECT.Models.DashboardViewModel
+
+<div class="container mt-5">
+    <h2 class="text-white fw-bold mb-4">Statistici Generale (Live)</h2>
+
+    <!-- Carduri de sus -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card bg-dark border-info shadow h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-info text-uppercase">Balanță Totală</h6>
+                    <h2 class="display-6 fw-bold text-white">@Model.BalantaTotala.ToString("N2") RON</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark border-warning shadow h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-warning text-uppercase">Activități Active</h6>
+                    <h2 class="display-6 fw-bold text-white">@Model.TaskuriActive</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark border-danger shadow h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-danger text-uppercase">Cheltuieli Lună</h6>
+                    <h2 class="display-6 fw-bold text-white">@Model.CheltuieliLuna.ToString("N2") RON</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secțiunea de Grafice -->
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="table-container shadow-lg">
+                <h4 class="text-info fw-bold mb-4 text-center">Cheltuieli / Ecosistem</h4>
+                <div style="height:300px;"><canvas id="pieChart"></canvas></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="table-container shadow-lg">
+                <h4 class="text-info fw-bold mb-4 text-center">Efort Activități (7 Zile)</h4>
+                <div style="height:300px;"><canvas id="barChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Date pentru Pie Chart
+        const labelsFinante = @Html.Raw(Json.Serialize(Model.NumeEcosisteme));
+        const dateFinante = @Html.Raw(Json.Serialize(Model.SumeEcosisteme));
+
+        new Chart(document.getElementById('pieChart'), {
+            type: 'doughnut',
+            data: {
+                labels: labelsFinante,
+                datasets: [{
+                    data: dateFinante,
+                    backgroundColor: ['#22d3ee', '#818cf8', '#f472b6', '#fbbf24', '#34d399'],
+                    borderColor: '#0f172a',
+                    borderWidth: 2
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#f8fafc' } } } }
+        });
+
+        // Date pentru Bar Chart
+        const labelsZile = @Html.Raw(Json.Serialize(Model.EticheteZile));
+        const dateEfort = @Html.Raw(Json.Serialize(Model.EfortZile));
+
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: labelsZile,
+                datasets: [{
+                    label: 'Ore Lucrate',
+                    data: dateEfort,
+                    backgroundColor: '#a5f3fc',
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+                    x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+}

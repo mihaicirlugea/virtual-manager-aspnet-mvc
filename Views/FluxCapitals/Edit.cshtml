@@ -1,0 +1,44 @@
+﻿@model PAW_PROJECT.Models.FluxCapital
+
+<div class="container">
+    <div class="form-container shadow-lg border-warning">
+        <!-- Galben pentru Edit -->
+        <div class="form-header border-warning">
+            <h2 class="text-white fw-bold m-0">Editează Tranzacție</h2>
+        </div>
+
+        <div class="form-body">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="SumaRON" class="form-label text-info">Sumă (RON)</label>
+                    <input asp-for="SumaRON" class="form-control bg-secondary text-white border-0" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Vector" class="form-label text-info">Tip (Venit/Cheltuială)</label>
+                    <select asp-for="Vector" class="form-select bg-secondary text-white border-0">
+                        <option value="1">Venit</option>
+                        <option value="-1">Cheltuială</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DataTimp" class="form-label text-info">Data</label>
+                    <input asp-for="DataTimp" type="datetime-local" class="form-control bg-secondary text-white border-0" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EcosistemId" class="form-label text-info">Ecosistem</label>
+                    <select asp-for="EcosistemId" class="form-select bg-secondary text-white border-0" asp-items="ViewBag.EcosistemId"></select>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <a asp-action="Index" class="btn btn-outline-light rounded-pill px-4">Înapoi</a>
+                    <button type="submit" class="btn btn-warning rounded-pill px-4 fw-bold">Actualizează</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

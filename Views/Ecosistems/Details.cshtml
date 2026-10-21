@@ -1,0 +1,96 @@
+﻿@model PAW_PROJECT.Models.Ecosistem
+
+<div class="container mt-5 text-white">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-5 fw-bold">Detalii Ecosistem: @Model.Denumire</h1>
+            <p class="text-info fst-italic">Obiectiv: @Model.ObiectivMacro</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning rounded-pill">Editează</a>
+            <a asp-action="Index" class="btn btn-outline-light rounded-pill">Înapoi la Listă</a>
+        </div>
+    </div>
+
+    <hr class="border-secondary mb-5" />
+
+    <div class="row g-4">
+        <!-- Secțiune Activități -->
+        <div class="col-md-6">
+            <div class="card bg-dark border-info shadow-lg h-100">
+                <div class="card-header border-info bg-transparent py-3">
+                    <h4 class="mb-0 text-info fw-bold">Activități Înregistrate</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model.Activitati != null && Model.Activitati.Any())
+                    {
+                        <table class="table table-dark table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Denumire</th>
+                                    <th class="text-end">Efort (ore)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var act in Model.Activitati)
+                                {
+                                    <tr>
+                                        <td>@act.Denumire</td>
+                                        <td class="text-end">@act.EfortOre h</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <p class="text-muted fst-italic mb-0">Nu există activități în acest ecosistem.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Secțiune Finanțe -->
+        <div class="col-md-6">
+            <div class="card bg-dark border-success shadow-lg h-100">
+                <div class="card-header border-success bg-transparent py-3">
+                    <h4 class="mb-0 text-success fw-bold">Fluxuri Financiare</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model.Fluxuri != null && Model.Fluxuri.Any())
+                    {
+                        <table class="table table-dark table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Sumă</th>
+                                    <th class="text-end">Tip</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var flux in Model.Fluxuri)
+                                {
+                                    <tr>
+                                        <td>@flux.SumaRON.ToString("N2") RON</td>
+                                        <td class="text-end">
+                                            <span class="badge @(flux.Vector == 1 ? "bg-success" : "bg-danger")">
+                                                @(flux.Vector == 1 ? "Venit" : "Cheltuială")
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <p class="text-muted fst-italic mb-0">Nu există tranzacții în acest ecosistem.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

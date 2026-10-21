@@ -1,0 +1,41 @@
+﻿<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-3 fw-bold text-white">Dashboard Central</h1>
+        <p class="text-info opacity-75">"Disciplina este podul dintre obiective și realizări."</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Card Task-uri -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white border-info h-100 shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Activități</h5>
+                    <p class="card-text opacity-75">Gestionează task-urile și efortul investit.</p>
+                    <a asp-controller="Activitati" asp-action="Index" class="btn btn-outline-info rounded-pill">Vezi Activități</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Finanțe -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white border-success h-100 shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Flux Capital</h5>
+                    <p class="card-text opacity-75">Monitorizează veniturile și cheltuielile.</p>
+                    <a asp-controller="FluxCapitals" asp-action="Index" class="btn btn-outline-success rounded-pill">Verifică Buget</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Ecosisteme -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white border-warning h-100 shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Ecosisteme</h5>
+                    <p class="card-text opacity-75">Organizează totul pe categorii mari.</p>
+                    <a asp-controller="Ecosistems" asp-action="Index" class="btn btn-outline-warning rounded-pill">Setări Categorii</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

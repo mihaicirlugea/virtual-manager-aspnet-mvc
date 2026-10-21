@@ -1,0 +1,33 @@
+﻿@model PAW_PROJECT.Models.Ecosistem
+
+<div class="container">
+    <div class="form-container shadow-lg border-warning">
+        <div class="form-header" style="background-color: rgba(255, 193, 7, 0.1); border-bottom: 1px solid #ffc107;">
+            <h2 class="text-white fw-bold m-0">Editează Ecosistem</h2>
+        </div>
+
+        <div class="form-body">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-4">
+                    <label asp-for="Denumire" class="form-label text-warning fw-bold">Denumire</label>
+                    <input asp-for="Denumire" class="form-control bg-dark text-white border-secondary" />
+                    <span asp-validation-for="Denumire" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="ObiectivMacro" class="form-label text-warning fw-bold">Obiectiv Macro</label>
+                    <input asp-for="ObiectivMacro" class="form-control bg-dark text-white border-secondary" />
+                    <span asp-validation-for="ObiectivMacro" class="text-danger small"></span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-5">
+                    <a asp-action="Index" class="btn btn-outline-light rounded-pill px-4">Înapoi</a>
+                    <button type="submit" class="btn btn-warning rounded-pill px-5 fw-bold text-dark">Salvează Modificările</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

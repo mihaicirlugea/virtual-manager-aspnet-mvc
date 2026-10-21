@@ -1,0 +1,39 @@
+﻿@model PAW_PROJECT.Models.LoginViewModel
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="form-container shadow-lg border-success" style="max-width: 450px; width: 100%;">
+        <div class="form-header" style="background-color: rgba(34, 197, 94, 0.1); border-bottom: 1px solid #22c55e;">
+            <h3 class="text-white fw-bold m-0 text-center">Autentificare</h3>
+        </div>
+
+        <div class="form-body p-4">
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label text-success fw-bold">Email</label>
+                    <input asp-for="Email" class="form-control bg-dark text-white border-secondary" placeholder="nume@student.upt.ro" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label text-success fw-bold">Parolă</label>
+                    <input asp-for="Password" class="form-control bg-dark text-white border-secondary" placeholder="******" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4 form-check text-start">
+                    <input asp-for="RememberMe" class="form-check-input bg-dark border-secondary" />
+                    <label asp-for="RememberMe" class="form-check-label text-white small">Ține-mă minte</label>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 rounded-pill fw-bold text-white mb-3">Intră în Cont</button>
+
+                <div class="text-center">
+                    <span class="text-muted small">Nu ai un cont încă?</span>
+                    <a asp-action="Register" class="text-success small fw-bold text-decoration-none ms-1">Înregistrează-te</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>s

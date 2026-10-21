@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PAW_PROJECT.Models.Activitate>
+
+<div class="container">
+    <div class="table-container shadow-lg">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-white fw-bold m-0">Management Activități</h2>
+            <a asp-action="Create" class="btn btn-info rounded-pill px-4">
+                Adaugă Task Nou
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-hover border-secondary">
+                <thead>
+                    <tr class="text-info border-bottom border-info">
+                        <th>Denumire</th>
+                        <th>Efort (Ore)</th>
+                        <th>Ecosistem</th>
+                        <th class="text-center">Acțiuni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="align-middle fw-bold">@item.Denumire</td>
+                            <td class="align-middle">@item.EfortOre h</td>
+                            <td class="align-middle text-secondary">@item.Ecosistem?.Denumire</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editează</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Șterge</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
