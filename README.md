@@ -1,1 +1,0 @@
-# virtual-manager-aspnet-mvc
